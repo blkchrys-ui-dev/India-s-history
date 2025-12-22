@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country History Image Slider</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.8rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .subtitle {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 500px;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            height: 100%;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .slide-content {
+            position: relative;
+            z-index: 2;
+            max-width: 70%;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 30px;
+            border-radius: 10px;
+            transform: translateY(50px);
+            opacity: 0;
+            transition: all 0.8s ease 0.3s;
+        }
+
+        .slide.active .slide-content {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .slide-title {
+            font-size: 2.2rem;
+            margin-bottom: 15px;
+            color: #fdbb2d;
+        }
+
+        .slide-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+        }
+
+        .slider-nav {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            z-index: 5;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            margin: 0 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot.active {
+            background: #fff;
+            transform: scale(1.3);
+        }
+
+        .slider-controls {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 4;
+        }
+
+        .control-btn {
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .control-btn:hover {
+            background: rgba(0, 0, 0, 0.8);
+            transform: scale(1.1);
+        }
+
+        .progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 5px;
+            background: #fdbb2d;
+            width: 0%;
+            transition: width 0.1s linear;
+            z-index: 5;
+        }
+
+        .thumbnail-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+
+        .thumbnail {
+            width: 80px;
+            height: 60px;
+            border-radius: 5px;
+            overflow: hidden;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .thumbnail.active {
+            opacity: 1;
+            border-color: #fdbb2d;
+            transform: scale(1.1);
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .feature {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 25px;
+            border-radius: 10px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .feature i {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #fdbb2d;
+        }
+
+        @media (max-width: 768px) {
+            .slider-container {
+                height: 400px;
+            }
+            
+            .slide-content {
+                max-width: 85%;
+                padding: 20px;
+            }
+            
+            .slide-title {
+                font-size: 1.8rem;
+            }
+            
+            .control-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .slider-container {
+                height: 350px;
+            }
+            
+            .slide-content {
+                max-width: 90%;
+                padding: 15px;
+            }
+            
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            
+            .slide-description {
+                font-size: 1rem;
+            }
+            
+            .thumbnail {
+                width: 60px;
+                height: 45px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Country History Explorer</h1>
+        <p class="subtitle">Discover the rich history and culture of nations through time</p>
+        
+        <div class="slider-container">
+            <div class="slider">
+                <!-- Slide 1 -->
+                <div class="slide active">
+                    <img src="https://images.unsplash.com/photo-1528181304800-259b08848526?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Ancient Egypt" class="slide-image">
+                    <div class="slide-content">
+                        <h2 class="slide-title">Ancient Egypt</h2>
+                        <p class="slide-description">One of the world's earliest civilizations, known for its pyramids, pharaohs, and hieroglyphic writing. The Nile River was central to its development and prosperity.</p>
+                    </div>
+                </div>
+                
+                <!-- Slide 2 -->
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1548013146-72479768bada?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1476&q=80" alt="Roman Empire" class="slide-image">
+                    <div class="slide-content">
+                        <h2 class="slide-title">Roman Empire</h2>
+                        <p class="slide-description">At its height, the Roman Empire controlled vast territories around the Mediterranean Sea in Europe, North Africa, and Western Asia, leaving a lasting legacy in law, architecture, and language.</p>
+                    </div>
+                </div>
+                
+                <!-- Slide 3 -->
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1518638150340-f706e86654de?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1467&q=80" alt="Medieval Europe" class="slide-image">
+                    <div class="slide-content">
+                        <h2 class="slide-title">Medieval Europe</h2>
+                        <p class="slide-description">A period marked by feudalism, the rise of Christianity, and the construction of magnificent cathedrals. This era saw the development of distinct European kingdoms and cultures.</p>
+                    </div>
+                </div>
+                
+                <!-- Slide 4 -->
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1523059623039-a9ed027e7fad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" alt="Ming Dynasty China" class="slide-image">
+                    <div class="slide-content">
+                        <h2 class="slide-title">Ming Dynasty China</h2>
+                        <p class="slide-description">Known for its cultural restoration and expansion, the Ming Dynasty saw the construction of the Forbidden City and the voyages of Zheng He. Porcelain and literature flourished during this golden age.</p>
+                    </div>
+                </div>
+                
+                <!-- Slide 5 -->
+                <div class="slide">
+                    <img src="OLd-images/Mysore-The Temple  in Chamundi Hill.jpg" alt="Maya Civilization" class="slide-image">
+                    <div class="slide-content">
+                        <h2 class="slide-title">Maya Civilization</h2>
+                        <p class="slide-description">A Mesoamerican civilization known for its sophisticated writing system, art, architecture, mathematics, calendar, and astronomical system. The Maya built impressive city-states across Central America.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="progress-bar"></div>
+            
+            <div class="slider-controls">
+                <button class="control-btn prev-btn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="control-btn next-btn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            
+            <div class="slider-nav">
+                <div class="nav-dot active" data-slide="0"></div>
+                <div class="nav-dot" data-slide="1"></div>
+                <div class="nav-dot" data-slide="2"></div>
+                <div class="nav-dot" data-slide="3"></div>
+                <div class="nav-dot" data-slide="4"></div>
+            </div>
+        </div>
+        
+        <div class="thumbnail-container">
+            <div class="thumbnail active" data-slide="0">
+                <img src="https://images.unsplash.com/photo-1528181304800-259b08848526?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Ancient Egypt">
+            </div>
+            <div class="thumbnail" data-slide="1">
+                <img src="https://images.unsplash.com/photo-1548013146-72479768bada?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Roman Empire">
+            </div>
+            <div class="thumbnail" data-slide="2">
+                <img src="https://images.unsplash.com/photo-1518638150340-f706e86654de?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Medieval Europe">
+            </div>
+            <div class="thumbnail" data-slide="3">
+                <img src="https://images.unsplash.com/photo-1523059623039-a9ed027e7fad?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" alt="Ming Dynasty China">
+            </div>
+            <div class="thumbnail" data-slide="4">
+                <img src="OLd-images/Mysore-The Temple  in Chamundi Hill.jpg" alt="Maya Civilization">
+            </div>
+        </div>
+        
+        <div class="features">
+            <div class="feature">
+                <i class="fas fa-history"></i>
+                <p>Historical Timeline</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-images"></i>
+                <p>Rich Visuals</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-globe-americas"></i>
+                <p>Global Coverage</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-book-open"></i>
+                <p>Educational Content</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slider = document.querySelector('.slider');
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.nav-dot');
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+            const progressBar = document.querySelector('.progress-bar');
+            
+            let currentSlide = 0;
+            let slideInterval;
+            const slideDuration = 5000; // 5 seconds
+            
+            // Initialize slider
+            function initSlider() {
+                updateSlider();
+                startAutoSlide();
+            }
+            
+            // Go to specific slide
+            function goToSlide(index) {
+                currentSlide = index;
+                updateSlider();
+                resetAutoSlide();
+            }
+            
+            // Go to next slide
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                updateSlider();
+                resetAutoSlide();
+            }
+            
+            // Go to previous slide
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                updateSlider();
+                resetAutoSlide();
+            }
+            
+            // Update slider position and active states
+            function updateSlider() {
+                slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+                
+                // Update dots
+                dots.forEach(dot => dot.classList.remove('active'));
+                dots[currentSlide].classList.add('active');
+                
+                // Update thumbnails
+                thumbnails.forEach(thumb => thumb.classList.remove('active'));
+                thumbnails[currentSlide].classList.add('active');
+                
+                // Update slides
+                slides.forEach(slide => slide.classList.remove('active'));
+                slides[currentSlide].classList.add('active');
+                
+                // Reset progress bar
+                progressBar.style.width = '0%';
+            }
+            
+            // Start automatic sliding
+            function startAutoSlide() {
+                slideInterval = setInterval(nextSlide, slideDuration);
+            }
+            
+            // Reset automatic sliding
+            function resetAutoSlide() {
+                clearInterval(slideInterval);
+                startAutoSlide();
+            }
+            
+            // Progress bar animation
+            function animateProgressBar() {
+                let width = 0;
+                const interval = 50; // Update every 50ms
+                const increment = (100 / (slideDuration / interval));
+                
+                const progressInterval = setInterval(() => {
+                    if (width >= 100) {
+                        clearInterval(progressInterval);
+                    } else {
+                        width += increment;
+                        progressBar.style.width = width + '%';
+                    }
+                }, interval);
+            }
+            
+            // Event listeners
+            prevBtn.addEventListener('click', prevSlide);
+            nextBtn.addEventListener('click', nextSlide);
+            
+            dots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    const slideIndex = parseInt(this.getAttribute('data-slide'));
+                    goToSlide(slideIndex);
+                });
+            });
+            
+            thumbnails.forEach(thumb => {
+                thumb.addEventListener('click', function() {
+                    const slideIndex = parseInt(this.getAttribute('data-slide'));
+                    goToSlide(slideIndex);
+                });
+            });
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowLeft') {
+                    prevSlide();
+                } else if (e.key === 'ArrowRight') {
+                    nextSlide();
+                }
+            });
+            
+            // Initialize the slider
+            initSlider();
+            
+            // Start progress bar animation
+            setInterval(animateProgressBar, slideDuration);
+            animateProgressBar();
+        });
+    </script>
+</body>
+</html>

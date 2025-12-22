@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country History Explorer - Image Slider</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.8rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .subtitle {
+            text-align: center;
+            margin-bottom: 40px;
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .slider-container {
+            position: relative;
+            width: 80%;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            margin-left: 150px;
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            height: 100%;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 100%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slide-content-wrapper {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .slide-image-container {
+            flex: 1.8;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .slide-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .slide:hover .slide-image {
+            transform: scale(1.05);
+        }
+
+        .slide-text-container {
+            flex: 1.3;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        .slide-title {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: #fdbb2d;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .slide-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 80px;
+            height: 3px;
+            background: #fdbb2d;
+        }
+
+        .slide-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .slide-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 25px;
+        }
+
+        .feature-tag {
+            background: rgba(253, 187, 45, 0.2);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid rgba(253, 187, 45, 0.5);
+        }
+
+        .learn-more-btn {
+            display: inline-block;
+            background: #fdbb2d;
+            color: #333;
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            align-self: flex-start;
+        }
+
+        .learn-more-btn:hover {
+            background: #ffcc5c;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        .slider-nav {
+            position: absolute;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            display: flex;
+            justify-content: center;
+            z-index: 5;
+        }
+
+        .nav-dot {
+            width: 12px;
+            height: 12px;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            margin: 0 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .nav-dot.active {
+            background: #fff;
+            transform: scale(1.3);
+        }
+
+        .slider-controls {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            z-index: 4;
+        }
+
+        .control-btn {
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+        }
+
+        .control-btn:hover {
+            background: rgba(0, 0, 0, 0.8);
+            transform: scale(1.1);
+        }
+
+        .progress-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            height: 5px;
+            background: #fdbb2d;
+            width: 0%;
+            transition: width 0.1s linear;
+            z-index: 5;
+        }
+
+        .thumbnail-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            gap: 10px;
+        }
+
+        .thumbnail {
+            width: 80px;
+            height: 60px;
+            border-radius: 5px;
+            overflow: hidden;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .thumbnail.active {
+            opacity: 1;
+            border-color: #fdbb2d;
+            transform: scale(1.1);
+        }
+
+        .thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .features {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+
+        .feature {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 15px 25px;
+            border-radius: 10px;
+            text-align: center;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .feature i {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+            color: #fdbb2d;
+        }
+
+        .slide-counter {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            z-index: 5;
+        }
+
+        .auto-play-toggle {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            z-index: 5;
+            transition: all 0.3s ease;
+        }
+
+        .auto-play-toggle:hover {
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        @media (max-width: 768px) {
+            .slider-container {
+                height: 400px;
+            }
+            
+            .slide-text-container {
+                padding: 25px;
+            }
+            
+            .slide-title {
+                font-size: 1.8rem;
+            }
+            
+            .slide-description {
+                font-size: 1rem;
+            }
+            
+            .control-btn {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .slide-content-wrapper {
+                flex-direction: column;
+            }
+            
+            .slide-image-container {
+                height: 50%;
+            }
+            
+            .slide-text-container {
+                height: 50%;
+                padding: 20px;
+            }
+            
+            .slide-title {
+                font-size: 1.5rem;
+            }
+            
+            .slide-description {
+                font-size: 0.9rem;
+            }
+            
+            .thumbnail {
+                width: 60px;
+                height: 45px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Country History Explorer</h1>
+        <p class="subtitle">Discover the rich history and culture of nations through time</p>
+        
+        <div class="slider-container">
+            <div class="slider">
+                <!-- Slide 1 -->
+                <div class="slide active">
+                    <div class="slide-content-wrapper">
+                        <div class="slide-image-container">
+                            <img src="OLd-images/Delhi-2-Red-Fort.jpg" alt="Ancient Egypt" class="slide-image">
+                        </div>
+                        <div class="slide-text-container">
+                            <h2 class="slide-title">Red Fort</h2>
+                            <p class="slide-description">The Red Fort (Lal Qila) is a historic Mughal fort in Delhi, India, built by Emperor Shah Jahan in the mid-17th century as the primary residence of the Mughal emperors and the hub of Mughal power.Constructed from red sandstone, it features a complex of palaces, audience halls (like the Diwani Khas and Diwani Am), gardens, and a mosque. </p>
+                            <!-- <div class="slide-features">
+                                <span class="feature-tag">Pyramids</span>
+                                <span class="feature-tag">Pharaohs</span>
+                                <span class="feature-tag">Hieroglyphics</span>
+                                <span class="feature-tag">Nile River</span>
+                            </div>
+                            <a href="#" class="learn-more-btn">Learn More</a> -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 2 -->
+                <div class="slide">
+                    <div class="slide-content-wrapper">
+                        <div class="slide-image-container">
+                            <img src="OLd-images/Gujrat-Bhadra Fort.jpg" alt="Roman Empire" class="slide-image">
+                        </div>
+                        <div class="slide-text-container">
+                            <h2 class="slide-title">Bhandara Fort</h2>
+                            <p class="slide-description">Bhadra Fort in Ahmedabad is a 15th-century citadel built by the city's founder, Ahmed Shah, named after a nearby temple. The fort complex includes the iconic Teen Darwaja (Triple Gateway), a Bhadrakali Temple, and former palace structures, all located within the historical city walls.</p>
+                            <!-- <div class="slide-features">
+                                <span class="feature-tag">Colosseum</span>
+                                <span class="feature-tag">Aqueducts</span>
+                                <span class="feature-tag">Latin Language</span>
+                                <span class="feature-tag">Roman Law</span>
+                            </div>
+                            <a href="#" class="learn-more-btn">Learn More</a> -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 3 -->
+                <div class="slide">
+                    <div class="slide-content-wrapper">
+                        <div class="slide-image-container">
+                            <img src="OLd-images/Lucknow-Turkish Gate -1880's.jpg" alt="Medieval Europe" class="slide-image">
+                        </div>
+                        <div class="slide-text-container">
+                            <h2 class="slide-title">Turkish Gate</h2>
+                            <p class="slide-description">The Rumi Darwaza, in Lucknow, Uttar Pradesh, India, is a gateway which was built by Nawab Asaf-Ud-Daula in 1784. It is an example of Awadhi architecture. The Rumi Darwaza is sixty feet tall and was modeled after the Sublime Porte in Istanbul.</p>
+                            <!-- <div class="slide-features">
+                                <span class="feature-tag">Feudalism</span>
+                                <span class="feature-tag">Castles</span>
+                                <span class="feature-tag">Crusades</span>
+                                <span class="feature-tag">Gothic Architecture</span>
+                            </div>
+                            <a href="#" class="learn-more-btn">Learn More</a> -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 4 -->
+                <div class="slide">
+                    <div class="slide-content-wrapper">
+                        <div class="slide-image-container">
+                            <img src="OLd-images/Rajasthan -Hawa-Mahal.jpg" alt="Ming Dynasty China" class="slide-image">
+                        </div>
+                        <div class="slide-text-container">
+                            <h2 class="slide-title">Hawa Mahal</h2>
+                            <p class="slide-description">The Hawa Mahal is a palace in the city of Jaipur, Rajasthan, India. Built from red and pink sandstone, it is on the edge of the City Palace, Jaipur, and extends to the Zenana, or women's chambers. Hawa Mahal also known as the “palace of winds“ was built in 1799 by Maharaja Sawai Pratap Singh.</p>
+                            <!-- <div class="slide-features">
+                                <span class="feature-tag">Forbidden City</span>
+                                <span class="feature-tag">Porcelain</span>
+                                <span class="feature-tag">Great Wall</span>
+                                <span class="feature-tag">Zheng He Voyages</span>
+                            </div>
+                            <a href="#" class="learn-more-btn">Learn More</a> -->
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Slide 5 -->
+                <div class="slide">
+                    <div class="slide-content-wrapper">
+                        <div class="slide-image-container">
+                            <img src="OLd-images/Punjab- Golden Temple-2.jpg" alt="Maya Civilization" class="slide-image">
+                        </div>
+                        <div class="slide-text-container">
+                            <h2 class="slide-title">Golden Temple</h2>
+                            <p class="slide-description">We Can Bet You Haven't Seen These Images Of Golden Temple Before!The Golden Temple (Harmandir Sahib) is the holiest gurdwara (Sikh temple) in Sikhism, located in Amritsar, Punjab, India, famous for its gilded exterior and for being a spiritual and administrative center for Sikhs worldwide. Constructed by Guru Ram Das in the late 16th century and later embellished with 750 kg of gold by Maharaja Ranjit Singh, it is renowned for its intricate architecture, serene sarovar (pool), and tranquil atmosphere.</p>
+                            <!-- <div class="slide-features">
+                                <span class="feature-tag">Pyramids</span>
+                                <span class="feature-tag">Calendar System</span>
+                                <span class="feature-tag">Hieroglyphic Writing</span>
+                                <span class="feature-tag">Astronomy</span>
+                            </div>
+                            <a href="#" class="learn-more-btn">Learn More</a> -->
+                        </div>
+                    </div>
+                </div>
+                <!-- Slide 6 -->
+                <!-- <div class="slide">
+                    <div class="slide-content-wrapper">
+                        <div class="slide-image-container">
+                            <img src="OLd-images/Hyderabad-Nizam's procession.jpg" alt="Maya Civilization" class="slide-image">
+                        </div>
+                        <div class="slide-text-container">
+                            <h2 class="slide-title">Maya Civilization</h2>
+                            <p class="slide-description">A Mesoamerican civilization known for its sophisticated writing system, art, architecture, mathematics, calendar, and astronomical system. The Maya built impressive city-states across Central America world's earliest civilizations, known for its pyramids, pharaohs, and hieroglyphic writing. The Nile River was central to its development and prosperity, providing fertile land for agriculture and enabling trade.</p>
+                            
+                        </div>
+                    </div>
+                </div> -->
+            </div>
+            
+            <div class="progress-bar"></div>
+            
+            <div class="slider-controls">
+                <button class="control-btn prev-btn">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+                <button class="control-btn next-btn">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+            </div>
+            
+            <div class="slider-nav">
+                <div class="nav-dot active" data-slide="0"></div>
+                <div class="nav-dot" data-slide="1"></div>
+                <div class="nav-dot" data-slide="2"></div>
+                <div class="nav-dot" data-slide="3"></div>
+                <div class="nav-dot" data-slide="4"></div>
+            </div>
+            
+            <div class="slide-counter">
+                <span class="current-slide">1</span> / <span class="total-slides">5</span>
+            </div>
+            
+            <button class="auto-play-toggle" id="autoPlayToggle">
+                <i class="fas fa-pause"></i>
+                <span>Pause Auto-Play</span>
+            </button>
+        </div>
+        
+        <!-- <div class="thumbnail-container">
+            <div class="thumbnail active" data-slide="0">
+                <img src="OLd-images/Delhi-2-Red-Fort.jpg" alt="Ancient Egypt">
+            </div>
+            <div class="thumbnail" data-slide="1">
+                <img src="" alt="Roman Empire">
+            </div>
+            <div class="thumbnail" data-slide="2">
+                <img src="" alt="Medieval Europe">
+            </div>
+            <div class="thumbnail" data-slide="3">
+                <img src="" alt="Ming Dynasty China">
+            </div>
+            <div class="thumbnail" data-slide="4">
+                <img src="" alt="Maya Civilization">
+            </div>
+        </div> -->
+        
+        <!-- <div class="features">
+            <div class="feature">
+                <i class="fas fa-history"></i>
+                <p>Historical Timeline</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-images"></i>
+                <p>Rich Visuals</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-globe-americas"></i>
+                <p>Global Coverage</p>
+            </div>
+            <div class="feature">
+                <i class="fas fa-book-open"></i>
+                <p>Educational Content</p>
+            </div>
+        </div> -->
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slider = document.querySelector('.slider');
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.nav-dot');
+            const thumbnails = document.querySelectorAll('.thumbnail');
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+            const progressBar = document.querySelector('.progress-bar');
+            const currentSlideElement = document.querySelector('.current-slide');
+            const totalSlidesElement = document.querySelector('.total-slides');
+            const autoPlayToggle = document.getElementById('autoPlayToggle');
+            const autoPlayIcon = autoPlayToggle.querySelector('i');
+            const autoPlayText = autoPlayToggle.querySelector('span');
+            
+            let currentSlide = 0;
+            let slideInterval;
+            const slideDuration = 8000; // Increased to 8 seconds
+            let isAutoPlay = true;
+            
+            // Set total slides count
+            totalSlidesElement.textContent = slides.length;
+            
+            // Initialize slider
+            function initSlider() {
+                updateSlider();
+                startAutoSlide();
+            }
+            
+            // Go to specific slide
+            function goToSlide(index) {
+                currentSlide = index;
+                updateSlider();
+                resetAutoSlide();
+            }
+            
+            // Go to next slide
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slides.length;
+                updateSlider();
+                resetAutoSlide();
+            }
+            
+            // Go to previous slide
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+                updateSlider();
+                resetAutoSlide();
+            }
+            
+            // Update slider position and active states
+            function updateSlider() {
+                slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+                
+                // Update dots
+                dots.forEach(dot => dot.classList.remove('active'));
+                dots[currentSlide].classList.add('active');
+                
+                // Update thumbnails
+                thumbnails.forEach(thumb => thumb.classList.remove('active'));
+                thumbnails[currentSlide].classList.add('active');
+                
+                // Update slides
+                slides.forEach(slide => slide.classList.remove('active'));
+                slides[currentSlide].classList.add('active');
+                
+                // Update slide counter
+                currentSlideElement.textContent = currentSlide + 1;
+                
+                // Reset progress bar
+                progressBar.style.width = '0%';
+            }
+            
+            // Start automatic sliding
+            function startAutoSlide() {
+                if (isAutoPlay) {
+                    slideInterval = setInterval(nextSlide, slideDuration);
+                }
+            }
+            
+            // Stop automatic sliding
+            function stopAutoSlide() {
+                clearInterval(slideInterval);
+            }
+            
+            // Reset automatic sliding
+            function resetAutoSlide() {
+                stopAutoSlide();
+                startAutoSlide();
+            }
+            
+            // Toggle auto-play
+            function toggleAutoPlay() {
+                isAutoPlay = !isAutoPlay;
+                
+                if (isAutoPlay) {
+                    autoPlayIcon.className = 'fas fa-pause';
+                    autoPlayText.textContent = 'Pause Auto-Play';
+                    startAutoSlide();
+                } else {
+                    autoPlayIcon.className = 'fas fa-play';
+                    autoPlayText.textContent = 'Play Auto-Play';
+                    stopAutoSlide();
+                }
+            }
+            
+            // Progress bar animation
+            function animateProgressBar() {
+                let width = 0;
+                const interval = 50; // Update every 50ms
+                const increment = (100 / (slideDuration / interval));
+                
+                const progressInterval = setInterval(() => {
+                    if (width >= 100 || !isAutoPlay) {
+                        clearInterval(progressInterval);
+                    } else {
+                        width += increment;
+                        progressBar.style.width = width + '%';
+                    }
+                }, interval);
+            }
+            
+            // Event listeners
+            prevBtn.addEventListener('click', prevSlide);
+            nextBtn.addEventListener('click', nextSlide);
+            
+            dots.forEach(dot => {
+                dot.addEventListener('click', function() {
+                    const slideIndex = parseInt(this.getAttribute('data-slide'));
+                    goToSlide(slideIndex);
+                });
+            });
+            
+            thumbnails.forEach(thumb => {
+                thumb.addEventListener('click', function() {
+                    const slideIndex = parseInt(this.getAttribute('data-slide'));
+                    goToSlide(slideIndex);
+                });
+            });
+            
+            autoPlayToggle.addEventListener('click', toggleAutoPlay);
+            
+            // Keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowLeft') {
+                    prevSlide();
+                } else if (e.key === 'ArrowRight') {
+                    nextSlide();
+                } else if (e.key === ' ') {
+                    e.preventDefault();
+                    toggleAutoPlay();
+                }
+            });
+            
+            // Initialize the slider
+            initSlider();
+            
+            // Start progress bar animation
+            setInterval(animateProgressBar, slideDuration);
+            animateProgressBar();
+        });
+    </script>
+</body>
+</html>

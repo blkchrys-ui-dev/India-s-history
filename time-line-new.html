@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Clean Horizontal Timeline</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body, html {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      font-family: Arial, sans-serif;
+      background-color: #e3f2f1;
+    }
+
+    .timeline {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 40px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+      height: 100%;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 60px;
+      right: 60px;
+      height: 4px;
+      background-color: #2b7a78;
+      z-index: 1;
+    }
+
+    .timeline-card {
+      background: white;
+      padding: 20px;
+      width: 220px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      position: relative;
+      z-index: 2;
+      text-align: center;
+    }
+
+    .timeline-card .title {
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #2b7a78;
+      font-size: 1.1em;
+    }
+
+    .timeline-card .description {
+      font-size: 0.9em;
+      color: #333;
+    }
+
+    .timeline-card .period {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translate(-50%, 20px);
+      background-color: #2b7a78;
+      color: white;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.8em;
+      white-space: nowrap;
+    }
+
+    /* Timeline dot */
+    .timeline-card::after {
+      content: "";
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      background-color: #2b7a78;
+      border-radius: 50%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 3;
+      border: 3px solid white;
+    }
+
+    /* Responsive for smaller screens */
+    @media (max-width: 768px) {
+      .timeline {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 20px;
+      }
+
+      .timeline::before {
+        top: initial;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 4px;
+        height: calc(100% - 40px);
+      }
+
+      .timeline-card {
+        margin-bottom: 60px;
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .timeline-card::after {
+        left: auto;
+        right: -28px;
+        top: 20px;
+        transform: none;
+      }
+
+      .timeline-card .period {
+        top: auto;
+        bottom: -30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="timeline">
+    <div class="timeline-card">
+      <div class="title">Started School</div>
+      <div class="description">Joined ABC Elementary School and began formal education journey.</div>
+      <div class="period">1998 - 2000</div>
+    </div>
+
+    <div class="timeline-card">
+      <div class="title">High School</div>
+      <div class="description">Attended XYZ High School with focus on science and math.</div>
+      <div class="period">2000 - 2002</div>
+    </div>
+
+    <div class="timeline-card">
+      <div class="title">College Life</div>
+      <div class="description">Pursued Bachelor's in Computer Science from Tech University.</div>
+      <div class="period">2002 - 2006</div>
+    </div>
+
+    <div class="timeline-card">
+      <div class="title">First Job</div>
+      <div class="description">Started working as a junior developer at Innovative Solutions Ltd.</div>
+      <div class="period">2006 - 2009</div>
+    </div>
+  </div>
+</body>
+</html>

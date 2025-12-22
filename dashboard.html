@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div th:fragment="sidebar">
+
+	<div id="sidebar">
+		<!--  <li>
+                <a>
+                          <button onclick=toggleSidebar() id="toggle-btn"> <i class="fa-solid fa-bars"></i><span>
+                    </span>
+                 
+                </button>
+                </a>
+            </li> -->
+
+
+
+
+		<li>
+			<button onclick=toggleSubMenu(this) class="dropdown-btn">
+				<i class="fa-solid fa-graduation-cap"></i> <span>Academic
+					Structure </span>
+				<svg xmlns="http://www.w3.org/2000/svg" height="24px"
+					viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                        <path
+						d="M480-361q-8 0-15-2.5t-13-8.5L268-556q-11-11-11-28t11-28q11-11 28-11t28 11l156 156 156-156q11-11 28-11t28 11q11 11 11 28t-11 28L508-372q-6 6-13 8.5t-15 2.5Z" />
+                    </svg>
+			</button>
+			<ul class="sub-menu">
+				<div>
+					<li><a th:href="@{/academic-year/academic-year-form}">Academic
+							Year Form</a></li>
+
+
+
+
+					<li><a th:href="@{/class-level/class-level-form}">Class
+							Level Form</a></li>
+					<li><a th:href="@{/component-type/component-type-form}">Component
+							Type Form</a></li>
+
+					<li><a th:href="@{/medium/medium-form}">Medium Form</a></li>
+					<li><a th:href="@{/profile/create}">User Profile Form</a></li>
+					<li><a th:href="@{/combined-list}"> Combined-list</a></li>
+					<li><a th:href="@{/header/tab-form2}"> New Tab form</a></li>
+
+
+
+
+
+
+				</div>
+			</ul>
+		</li>
+		<li>
+			<button onclick=toggleSubMenu(this) class="dropdown-btn">
+				<i class="fa-solid fa-file"></i> <span> Assignments & Exams </span>
+				<svg xmlns="http://www.w3.org/2000/svg" height="24px"
+					viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                        <path
+						d="M480-361q-8 0-15-2.5t-13-8.5L268-556q-11-11-11-28t11-28q11-11 28-11t28 11l156 156 156-156q11-11 28-11t28 11q11 11 11 28t-11 28L508-372q-6 6-13 8.5t-15 2.5Z" />
+                    </svg>
+			</button>
+			<ul class="sub-menu">
+				<div>
+					<li><a th:href="@{/assignment/assignment-form}">Assignment
+							Form</a></li>
+					<li><a
+						th:href="@{/assignment-submission/assignment-submission-form}">Assignment
+							Submission Form</a></li>
+					<li><a th:href="@{/exam/exam-form}">Exam Form</a></li>
+
+				</div>
+			</ul>
+		</li>
+
+		<li>
+			<button onclick=toggleSubMenu(this) class="dropdown-btn">
+				<i class="fa-solid fa-clipboard-list"></i> <span> Scheduling
+				</span>
+				<svg xmlns="http://www.w3.org/2000/svg" height="24px"
+					viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                        <path
+						d="M480-361q-8 0-15-2.5t-13-8.5L268-556q-11-11-11-28t11-28q11-11 28-11t28 11l156 156 156-156q11-11 28-11t28 11q11 11 11 28t-11 28L508-372q-6 6-13 8.5t-15 2.5Z" />
+                    </svg>
+			</button>
+			<ul class="sub-menu">
+				<div>
+					<li><a th:href="@{/timetable/timetable-form}">Timetable
+							Form</a></li>
+					<li><a th:href="@{/attendance/attendance-form}">Attendance
+							Form</a></li>
+					<li><a th:href="@{/holiday/holiday-form}">Holiday Form</a></li>
+
+				</div>
+			</ul>
+		</li>
+		<li>
+			<button onclick=toggleSubMenu(this) class="dropdown-btn">
+				<i class="fa-solid fa-people-roof"></i> <span><a
+					class="inner-link" th:href="@{/student-info/student-info-form}">Student
+						Management</a></span>
+
+			</button>
+
+		</li>
+
+		<li>
+			<button onclick=toggleSubMenu(this) class="dropdown-btn">
+				<i class="fa-solid fa-square-poll-vertical"></i> <span><a
+					class="inner-link" th:href="@{/student-info/student-info-form}">
+						Marks & Evaluation</a> </span>
+			</button>
+		</li>
+
+		<!-- -------copy of dropdown-------- -->
+		<!-- <li>
+                <button onclick=toggleSubMenu(this) class="dropdown-btn">
+                    <i class="fa-solid fa-people-roof"></i>
+                    <span>Student Management</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                        fill="#e8eaed">
+                        <path
+                            d="M480-361q-8 0-15-2.5t-13-8.5L268-556q-11-11-11-28t11-28q11-11 28-11t28 11l156 156 156-156q11-11 28-11t28 11q11 11 11 28t-11 28L508-372q-6 6-13 8.5t-15 2.5Z" />
+                    </svg>
+                </button>
+                <ul class="sub-menu">
+                    <div>
+                        <li><a th:href="@{/student-info/student-info-form}">Student Info Form</a></li>
+                        <li><a th:href="@{/parent-info/parent-info-form}">Parent Info Form</a></li>
+                        <li><a th:href="@{/address/address-form}">Address Form</a></li>
+                        <li><a th:href="@{/caste/caste-form}">Caste Form</a></li>
+
+                    </div>
+                </ul>
+            </li> -->
+		<!--  <li>
+                <button onclick=toggleSubMenu(this) class="dropdown-btn">
+                    <i class="fa-solid fa-square-poll-vertical"></i>
+                    <span> Marks & Evaluation
+                    </span>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                        fill="#e8eaed">
+                        <path
+                            d="M480-361q-8 0-15-2.5t-13-8.5L268-556q-11-11-11-28t11-28q11-11 28-11t28 11l156 156 156-156q11-11 28-11t28 11q11 11 11 28t-11 28L508-372q-6 6-13 8.5t-15 2.5Z" />
+                    </svg>
+                </button>
+                <ul class="sub-menu">
+                    <div>
+                        <li><a th:href="@{/marks-distribution/marks-distribution-form}">Marks Distribution Form</a></li>
+                        <li><a th:href="@{/marks-plan/marks-plan-form}">Marks Plan Form</a></li>
+                        <li><a th:href="@{/marks-strategy/marks-strategy-form}">Marks Strategy Form</a></li>
+                   
+
+                    </div>
+                </ul>
+            </li>
+             <li> 
+                <button onclick=toggleSubMenu(this) class="dropdown-btn">
+                 <i class="fa-solid fa-folder"></i>
+                    <span>Dimension Form</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px"
+                        fill="#e8eaed">
+                        <path
+                            d="M480-361q-8 0-15-2.5t-13-8.5L268-556q-11-11-11-28t11-28q11-11 28-11t28 11l156 156 156-156q11-11 28-11t28 11q11 11 11 28t-11 28L508-372q-6 6-13 8.5t-15 2.5Z" />
+                    </svg>
+                </button>
+                <ul class="sub-menu">
+                    <div>
+                       <li><a th:href="@{/dimension/dimension-form}">Dimension Form</a></li>
+                        <li><a th:href="@{/dimension-type/dimension-type-form}">Dimension Type Form</a></li>
+
+                    </div>
+                </ul>
+            </li>
+            -->
+
+
+
+		<!-- -------copy of dropdown-------- -->
+		<li>
+			<button onclick=toggleSubMenu(this) class="dropdown-btn">
+				<i class="fa-solid fa-folder"></i> <span><a
+					class="inner-link" th:href="@{/student-info/student-info-form}">Dimension
+						Form</a></span>
+
+			</button>
+		</li>
+
+		<li>
+			<button onclick=toggleSubMenu(this) class="dropdown-btn">
+				<i class="fa-solid fa-chalkboard-user"></i> <span>Teacher
+					Form</span>
+				<svg xmlns="http://www.w3.org/2000/svg" height="24px"
+					viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                        <path
+						d="M480-361q-8 0-15-2.5t-13-8.5L268-556q-11-11-11-28t11-28q11-11 28-11t28 11l156 156 156-156q11-11 28-11t28 11q11 11 11 28t-11 28L508-372q-6 6-13 8.5t-15 2.5Z" />
+                    </svg>
+			</button>
+			<ul class="sub-menu">
+				<div>
+					<li><a th:href="@{/teacher/teacher-form}">Teacher-form</a></li>
+					<li><a th:href="@{/term/term-form}">Term-form</a></li>
+
+					<li><a th:href="@{/term-structure/term-structure-form}">Term-structure-form</a></li>
+
+				</div>
+			</ul>
+		</li>
+		<li>
+			<button onclick=toggleSubMenu(this) class="dropdown-btn">
+				<i class="fa-solid fa-file-contract"></i> <span>Student
+					Academic</span>
+				<svg xmlns="http://www.w3.org/2000/svg" height="24px"
+					viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                        <path
+						d="M480-361q-8 0-15-2.5t-13-8.5L268-556q-11-11-11-28t11-28q11-11 28-11t28 11l156 156 156-156q11-11 28-11t28 11q11 11 11 28t-11 28L508-372q-6 6-13 8.5t-15 2.5Z" />
+                    </svg>
+			</button>
+			<ul class="sub-menu">
+				<div>
+					<li><a
+						th:href="@{/student-academic-record/student-academic-record-form}">Student
+							Academic Record Form</a></li>
+					<li><a
+						th:href="@{/student-grade-record/student-grade-record-form}">Student
+							Grade Record Form</a></li>
+					<li><a
+						th:href="@{/student-co-curricular-marks/student-co-curricular-marks-form}">Student
+							Co-curricular Marks Form</a></li>
+					<li><a
+						th:href="@{/student-personal-social-marks/student-personal-social-marks-form}">Student
+							Personal-Social Marks Form</a></li>
+					<li><a
+						th:href="@{/student-term-marks/student-term-marks-form}">Student
+							Term Marks Form</a></li>
+					<li><a
+						th:href="@{/student-unit-test-marks/student-unit-test-marks-form}">Student
+							Unit Test Marks Form</a></li>
+
+				</div>
+			</ul>
+		</li>
+		<li>
+			<button onclick=toggleSubMenu(this) class="dropdown-btn">
+				<i class="fa-solid fa-file-code"></i> <span>Subject Code</span>
+				<svg xmlns="http://www.w3.org/2000/svg" height="24px"
+					viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                        <path
+						d="M480-361q-8 0-15-2.5t-13-8.5L268-556q-11-11-11-28t11-28q11-11 28-11t28 11l156 156 156-156q11-11 28-11t28 11q11 11 11 28t-11 28L508-372q-6 6-13 8.5t-15 2.5Z" />
+                    </svg>
+			</button>
+			<ul class="sub-menu">
+				<div>
+					<li><a th:href="@{/subject-code/subject-code-form}">Subject-code-form</a></li>
+					<li><a
+						th:href="@{/subject-code-subjects/subject-code-subjects-form}">Subject-code-subjects-form</a>
+					</li>
+					<li><a th:href="@{/subject-group/subject-group-form}">Subject-group-form</a></li>
+
+					<li><a th:href="@{/subject/subject-form}">Subject-form</a></li>
+					<li><a th:href="@{/subject-type/subject-type-form}">Subject-type-form</a></li>
+
+				</div>
+			</ul>
+		</li>
+
+		<li>
+			<button onclick=toggleSubMenu(this) class="dropdown-btn">
+				<i class="fa-solid fa-file-code"></i> <span>Reports</span>
+				<svg xmlns="http://www.w3.org/2000/svg" height="24px"
+					viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                        <path
+						d="M480-361q-8 0-15-2.5t-13-8.5L268-556q-11-11-11-28t11-28q11-11 28-11t28 11l156 156 156-156q11-11 28-11t28 11q11 11 11 28t-11 28L508-372q-6 6-13 8.5t-15 2.5Z" />
+                    </svg>
+			</button>
+			<ul class="sub-menu">
+				<div>
+					<li><a th:href="@{/}"> <i class="fa-solid fa-user"></i> <span>Report
+								1</span>
+					</a></li>
+					<!--  <li><a
+                                th:href="@{/subject-code-subjects/subject-code-subjects-form}">User Profile form 2</a>
+                        </li> -->
+					<li><a th:href="@{/}"> <i class="fa-solid fa-user"></i> <span>Report
+								2</span>
+					</a></li>
+
+
+					<!-- <li><a th:href="@{/subject/subject-form}">User Profile form 4</a></li>
+                        <li><a th:href="@{/subject-type/subject-type-form}">User Profile form 5</a></li> -->
+
+				</div>
+			</ul>
+		</li>
+
+
+		<li>
+			<button onclick=toggleSubMenu(this) class="dropdown-btn">
+				<i class="fa-solid fa-file-code"></i> <span>User Profile
+					forms</span>
+				<svg xmlns="http://www.w3.org/2000/svg" height="24px"
+					viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                        <path
+						d="M480-361q-8 0-15-2.5t-13-8.5L268-556q-11-11-11-28t11-28q11-11 28-11t28 11l156 156 156-156q11-11 28-11t28 11q11 11 11 28t-11 28L508-372q-6 6-13 8.5t-15 2.5Z" />
+                    </svg>
+			</button>
+			<ul class="sub-menu">
+				<div>
+					<li><a th:href="@{/profile/create}"> <i
+							class="fa-solid fa-user"></i> <span>User Profile Form 1</span>
+					</a></li>
+					<li><a
+						th:href="@{/subject-code-subjects/subject-code-subjects-form}">User
+							Profile form 2</a></li>
+					<li><a th:href="@{/header/user-profile}"> <i
+							class="fa-solid fa-user"></i> <span>User Profile form 3</span>
+					</a></li>
+
+
+					<li><a th:href="@{/subject/subject-form}">User Profile
+							form 4</a></li>
+					<li><a th:href="@{/subject-type/subject-type-form}">User
+							Profile form 5</a></li>
+
+				</div>
+			</ul>
+		</li>
+
+
+		<div class="down">
+			<hr>
+			<li>
+				<button onclick=toggleSubMenu(this) class="dropdown-btn">
+					<i class="fa-solid fa-chalkboard-user"></i> <span>User</span>
+					<svg xmlns="http://www.w3.org/2000/svg" height="24px"
+						viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                        <path
+							d="M480-361q-8 0-15-2.5t-13-8.5L268-556q-11-11-11-28t11-28q11-11 28-11t28 11l156 156 156-156q11-11 28-11t28 11q11 11 11 28t-11 28L508-372q-6 6-13 8.5t-15 2.5Z" />
+                    </svg>
+				</button>
+				<ul class="sub-menu">
+					<div>
+						<li><a th:href="@{/header/user-form}"> <i
+								class="fa-solid fa-circle-info"></i> <span>User Form</a> </span></li>
+						<li><a th:href="@{/profile/create}"> <i
+								class="fa-solid fa-user"></i> <span>User Profile Form</span>
+						</a></li>
+
+						<li><a th:href="@{/header/user-profile}"> <i
+								class="fa-solid fa-user"></i> <span>User Profile List</span>
+						</a></li>
+
+						<li><a th:href="@{/header/users-list}"> <i
+								class="fa-solid fa-user"></i> <span>User List</span>
+						</a></li>
+
+
+						<li><a th:href="@{/roles/create}"> <i
+								class="fa-solid fa-user"></i> <span>Roles Form</span>
+						</a></li>
+
+					</div>
+				</ul>
+			</li>
+
+			<!-- FORMS MODULE START-->
+
+
+			<li>
+				<button onclick=toggleSubMenu(this) class="dropdown-btn">
+					<i class="fa-solid fa-chalkboard-user"></i> <span>Forms</span>
+					<svg xmlns="http://www.w3.org/2000/svg" height="24px"
+						viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                        <path
+							d="M480-361q-8 0-15-2.5t-13-8.5L268-556q-11-11-11-28t11-28q11-11 28-11t28 11l156 156 156-156q11-11 28-11t28 11q11 11 11 28t-11 28L508-372q-6 6-13 8.5t-15 2.5Z" />
+                    </svg>
+				</button>
+				<ul class="sub-menu">
+					<div>
+						<li><a th:href="@{/header/formOne}"> <i
+								class="fa-solid fa-circle-info"></i> <span>Form 1</a> </span></li>
+						<li><a th:href="@{/student-info/student-info-form}"> <i
+								class="fa-solid fa-user"></i> <span>Form 2</span>
+						</a></li>
+
+						<li><a th:href="@{/header/formThree}"> <i
+								class="fa-solid fa-user"></i> <span>Form 3</span>
+						</a></li>
+
+						<li><a th:href="@{/header/tab-form2}"> <i
+								class="fa-solid fa-user"></i> <span>Tab Form</span>
+						</a></li>
+
+						<li><a th:href="@{/header/abc}"> <i
+								class="fa-solid fa-user"></i> <span>ABC Form</span>
+						</a></li>
+
+
+
+
+					</div>
+				</ul>
+			</li>
+
+
+
+			<!-- for Password module -->
+			<li>
+				<button onclick=toggleSubMenu(this) class="dropdown-btn">
+					<i class="fa-solid fa-file-code"></i> <span>Password</span>
+					<svg xmlns="http://www.w3.org/2000/svg" height="24px"
+						viewBox="0 -960 960 960" width="24px" fill="#e8eaed">
+                        <path
+							d="M480-361q-8 0-15-2.5t-13-8.5L268-556q-11-11-11-28t11-28q11-11 28-11t28 11l156 156 156-156q11-11 28-11t28 11q11 11 11 28t-11 28L508-372q-6 6-13 8.5t-15 2.5Z" />
+                    </svg>
+				</button>
+				<ul class="sub-menu">
+					<div>
+						<li><a th:href="@{/header/forgot-password}">Forgot
+								password</a></li>
+						<li><a th:href="@{/header/reset-password}">Reset Password</a>
+						</li>
+
+						<li><a th:href="@{/header/change-password}">Change
+								Password</a></li>
+						<!-- <li><a
+                                th:href="@{/change-password/{mail}}">Change Password</a>
+                        </li>
+                        -->
+
+					</div>
+				</ul>
+			</li>
+
+
+			<!-- commented by Talha 2-nov-25 -->
+			<!-- defe -->
+			<!-- <li> <a th:href="@{/header/user-form}"> <i class="fa-solid fa-circle-info"></i> <span>User Form</a> </span>
+            </li>
+
+            <li>
+                <a th:href="@{/profile/create}">
+                    <i class="fa-solid fa-user"></i>
+                    <span>User Profile Form</span>
+                </a> 
+            </li>
+            
+            <li>
+                <a th:href="@{/combined-list}">
+                    <i class="fa-solid fa-user"></i>
+                    <span>User Profile List</span>
+                </a> 
+            </li> -->
+			<li><a href=""> <i class="fa-solid fa-right-from-bracket"></i>
+					<span>Logout</span>
+			</a></li>
+		</div>
+		
+	</div>
+	<div>
+		<!-- <div>
+<span class="logo"></span>
+                <button onclick=toggleSidebar() id="toggle-btn"><i class="fa-solid fa-bars"></i>
+                 
+                </button>
+            
+            </div> -->
+
+	</div>
+
+</div>
+
+</body>
+</html>

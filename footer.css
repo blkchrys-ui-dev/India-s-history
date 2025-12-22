@@ -1,0 +1,209 @@
+
+
+.libre-baskerville-regular {
+  font-family: "Libre Baskerville", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.hd-h3 {
+  font-family: "Libre Baskerville", serif;
+  font-size: medium;
+  color: #eeee16;
+}
+
+/* body p,
+li {
+  font-family: "Karla", sans-serif;
+} */
+
+.container-footer {
+  /* background-image: url(green-Shade-2.png);
+  background-repeat: no-repeat;
+  background-size: cover; */
+  display: flex;
+  justify-content: space-between;
+  padding: 30px;
+  height: 320px;
+  background-color: #0f2133;
+  color: antiquewhite;
+  line-height: 25px;
+}
+
+.list li {
+  display: inline-block;
+}
+
+.list {
+  height: 30px;
+  position: relative;
+  bottom: 35px;
+  right: 8px;
+}
+
+.list a {
+  text-decoration: none;
+  color: antiquewhite;
+}
+
+.list li {
+  /* border-right: 1px solid black; */
+  margin-left: 8px;
+}
+
+.social-icon {
+  position: relative;
+  /* top: 15px; */
+  right: 990px;
+  bottom: 10px;
+  /* left: 30px; */
+  /* width: 150px; */
+}
+
+.contact-us {
+  position: relative;
+  top: 33px;
+  /* left: 30px; */
+  right: 25px;
+}
+
+.contact-us p {
+  margin-top: 10px;
+}
+
+.container-footer img {
+  border-radius: 50%;
+  position: relative;
+  /* top: 5px; */
+  bottom: 5px;
+}
+
+.first-con {
+  margin-left: 30px;
+  /* text-align: center; */
+}
+
+.company,
+.support {
+  list-style-type: none;
+  margin-top: 34px;
+}
+
+.company a {
+  text-decoration: none;
+  color: antiquewhite;
+}
+
+.support a {
+  text-decoration: none;
+  color: antiquewhite;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+.support li {
+  margin-top: 10px;
+  margin-left: 15px;
+}
+
+.company li {
+  margin-top: 10px;
+  margin-left: 15px;
+}
+
+/* .list-2 {
+  list-style-type: none;
+  position: relative;
+  left: 430px;
+  top: 80px;
+} */
+
+.line {
+  position: relative;
+  bottom: 50px;
+  left: 60px;
+  width: 91%;
+}
+
+.hd {
+  position: relative;
+  top: 35px;
+  left: 90px;
+  font-size: 20px;
+  font-family: "Libre Baskerville", serif;
+  color: #eeee16;
+}
+
+.eng-p {
+  position: relative;
+  bottom: 25px;
+  left: 14px;
+}
+
+.bpl {
+  /* margin-left: 23px; */
+  font-family: "Karla", sans-serif;
+  position: relative;
+  left: 25px;
+  top: 5px;
+}
+
+/* icon styling */
+.fa-square-facebook {
+  color: #1877f2;
+  background-color: white;
+  font-size: 25px;
+}
+
+.fa-instagram {
+  font-size: 25px;
+  color: #e1306c;
+}
+
+.fa-youtube {
+  font-size: 25px;
+  color: red;
+}
+
+.fa-x-twitter {
+  font-size: 25px;
+  color: white;
+  /* color: black; */
+}
+
+.fa-linkedin {
+  font-size: 25px;
+  color: #0077b5;
+  background-color: white;
+}
+
+.fa-envelope {
+  color: #eeee16;
+}
+
+.fa-phone,
+.fa-location-dot {
+  color: #1877f2;
+  position: relative;
+  top: 2px;
+}
+.fa-brands {
+  background: rgba(128, 128, 128, 0.436);
+  padding: 10px;
+  border-radius: 50%;
+  margin-left: 8px;
+}
+.add-icon {
+  position: absolute;
+  top: 133px;
+  left: 96px;
+}
+.social-icon h4 {
+  position: relative;
+  left: 100px;
+  font-size: 20px;
+  margin-bottom: 5px;
+  color: #eeee16;
+}
