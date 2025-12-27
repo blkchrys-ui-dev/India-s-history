@@ -2235,6 +2235,7 @@ small {
 .tab-labels {
   display: flex;
   background: #eee;
+  flex-wrap: wrap;
 }
 
 .tab-labels label {
@@ -2769,7 +2770,7 @@ small {
     text-align: center;
   }
 
- .filter-index {
+  .filter-index {
     width: 100%;
     /* flex-wrap: wrap; */
     row-gap: 17px;
@@ -3147,6 +3148,15 @@ small {
     justify-content: center;
     flex-wrap: wrap;
   }
+
+  .row {
+    grid-template-columns: 1fr;
+  }
+
+  .tab-content {
+    padding: 20px 40px;
+  }
+
 }
 
 /* @media (max-width: 568px) {
