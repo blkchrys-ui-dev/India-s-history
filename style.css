@@ -1340,7 +1340,10 @@ main {
 .editorial-main h2{
  margin: 20px 0 10px 0;
 }
-.editorial-main  p,li{
+.editorial-main  p{
+  line-height: 30px !important;
+}
+.editorial-main {
   line-height: 30px;
 }
 .editorial-main ol{
