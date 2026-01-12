@@ -3939,44 +3939,46 @@ small {
   }
 
 
-.podcast-content-p {
-  padding: 30px;
-}
+  .podcast-content-p {
+    padding: 30px;
+     margin-right: 30px;
+    margin-left: 30px;
+  }
 
-.volunteer-img-div {
-  grid-template-columns: 1fr;
-}
+  .volunteer-img-div {
+    grid-template-columns: 1fr;
+  }
 
-.team-img-bio {
-  flex-direction: column;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-}
+  .team-img-bio {
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+  }
 
-.team-pic {
-  height: 150px;
-  width: 159px;
-  border-radius: 50%;
-}
+  .team-pic {
+    height: 150px;
+    width: 159px;
+    border-radius: 50%;
+  }
 
-.team-profile h1 {
-  margin-bottom: 10px;
-  text-align: center;
-}
+  .team-profile h1 {
+    margin-bottom: 10px;
+    text-align: center;
+  }
 
-.team-profile {
-  display: grid;
-  grid-template-rows: 1fr;
-  justify-content: center;
-  align-items: center;
-  align-content: center;
-}
+  .team-profile {
+    display: grid;
+    grid-template-rows: 1fr;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+  }
 
-.team-btn-div {
-  display: flex;
-  justify-content: center;
-}
+  .team-btn-div {
+    display: flex;
+    justify-content: center;
+  }
 
 }
 
