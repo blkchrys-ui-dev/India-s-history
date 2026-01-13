@@ -1291,7 +1291,7 @@ main {
   width: 100%;
   height: auto;
   display: block;
-  margin-bottom: 12px;   /* 👈 image ke niche gap */
+  margin-bottom: 12px;   
   border-radius: 4px;
 }
 .card-blog h3 {
@@ -1310,7 +1310,7 @@ main {
   font-size: 0.9rem;
   line-height: 1.6;
   color: #555;
-  margin: 0 6px 12px;   /* 👈 text breathing space */
+  margin: 0 6px 12px;   
 }
 .read-more-blog {
   display: inline-block;
@@ -1470,8 +1470,10 @@ main {
 }
 
 .blog-editorial-main {
+  width: 100%;
   display: flex;
-  margin-left: 50px;
+  justify-content: center;
+  padding: 16px;
 }
 
 /* blog editorial end*/
@@ -5306,14 +5308,27 @@ a:hover {
 }
 
 .social-icons i {
-  font-size: 22px;
-  color: white;
-  margin-right: 10px;
-  padding: 10px;
+  font-size: 18px;                 /* balanced icon size */
+  color: #ffffff;
+
+  width: 42px;
+  height: 42px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-right: 12px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.12);
+
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px);     
+
   cursor: pointer;
-  transition: 0.3s ease-in-out;
+  transition: 
+    transform 0.3s ease,
+    background 0.3s ease,
+    box-shadow 0.3s ease;
 }
 
 /* HOVER EFFECTS FOR ALL ICONS */
