@@ -3085,7 +3085,8 @@ small {
   background: #fff;
   /* border-bottom: 2px solid #fff; */
   /* border-bottom: 5px solid brown; */
-  border-bottom: 5px solid #033F2A;
+  /* border-bottom: 5px solid #033F2A; */
+  border-bottom: 5px solid #1a2c4e;
 }
 
 /* Show active tab content */
